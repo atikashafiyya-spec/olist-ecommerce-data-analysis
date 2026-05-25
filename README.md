@@ -7,30 +7,30 @@ This project focuses on analyzing customer retention, order fulfillment, and bus
 
 1. **Data Cleaning & Validation (SQL):** Handled duplicate primary keys, fixed corrupted string formats in pricing, and managed data type conversions.
 
-   Proses pembersihan data mentah Olist E-Commerce ini dilakukan sepenuhnya menggunakan PostgreSQL. Berikut adalah beberapa *query* andalan yang saya gunakan untuk mengatasi anomali data:
+  The process of cleaning the raw data for Olist E-Commerce is carried out entirely using PostgreSQL. Here are some of the key queries I use to address data anomalies:
 
    <details>
    <summary><b> 1. Validasi Integritas Referensial (LEFT JOIN Check)</b></summary>
 
-   Saya memastikan tidak ada transaksi hantu (*orphan records*) di mana data pesanan atau item pesanan kehilangan relasi dengan data induknya sebelum ditarik ke Power BI.
+  I ensure there are no orphan records—where order data or order line items lose their association with their parent records—before they are pulled into Power BI.
 
    ```sql
-   -- Memastikan semua customer_id di tabel order ada di tabel master customer
+   -- Ensure that all customer_id in the order table are present in the customer master table
    SELECT *
    FROM order_data od 
    LEFT JOIN customers_data cd ON od.customer_id = cd.customer_id
    WHERE cd.customer_id IS NULL;
    
-   -- Memperbaiki teks harga yang memiliki titik ganda
+   -- Correcting price text that contains double periods
    UPDATE order_item_data
    SET price = SPLIT_PART(price, '.', 1) || '.' || SPLIT_PART(price, '.', 2)
    WHERE price LIKE '%.%.%';
 
-   -- Mengubah tipe data kolom dari teks menjadi NUMERIC
+   -- Change the column data type from text to NUMERIC
    ALTER TABLE order_item_data
    ALTER COLUMN price TYPE NUMERIC USING price::NUMERIC;
 
-   -- Memeriksa duplikasi pada Primary Key tabel Order Item
+   -- Checking for duplicates in the Primary Key of the Order Item table
    SELECT order_id, order_item_id, COUNT(*) AS duplicate_count
    FROM order_item_data
    GROUP BY order_id, order_item_id
