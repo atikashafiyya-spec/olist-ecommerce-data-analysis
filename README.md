@@ -78,5 +78,5 @@ The dashboard was designed to support business analysis through KPI tracking and
   - Improve customer retention through post-purchase engagement strategies such as email reminders or discount vouchers.
   - Optimize marketing campaigns during peak transaction hours.
   - Prioritize operational support in high-demand regions such as São Paulo.
-sefficiently.IC USING price::NUMERIC;
+
   
