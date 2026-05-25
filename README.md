@@ -1,56 +1,82 @@
 # Olist E-Commerce End-to-End Data Analysis
 
 ## Project Overview
-This project focuses on analyzing customer retention, order fulfillment, and business performance metrics using the Olist E-Commerce dataset. It covers the entire data pipeline, from raw data cleaning in PostgreSQL to interactive visualization in Power BI.
+This project analyzes customer retention, sales performance, and purchasing behavior using the Olist E-Commerce dataset. The workflow covers the complete analytics process, starting from data cleaning in PostgreSQL to building an interactive dashboard in Power BI.
+
+---
 
 ## Data Analyst Workflow
 
-1. **Data Cleaning & Validation (SQL):** Handled duplicate primary keys, fixed corrupted string formats in pricing, and managed data type conversions.
+### 1. Data Cleaning & Validation (SQL)
+Performed data cleaning and validation using PostgreSQL, including:
+- checking referential integrity between tables
+- fixing corrupted pricing formats
+- converting incorrect data types
+- identifying duplicate records
 
-The process of cleaning the raw data for Olist E-Commerce is carried out entirely using PostgreSQL. Here are the key queries I used to address data anomalies:
+Key SQL queries used during the cleaning process:
 
 <details>
-<summary><b> View All SQL Data Cleaning Queries (Click to Expand)</b></summary>
+<summary><b>View SQL Data Cleaning Queries</b></summary>
 
 ```sql
--- 1. Referential Integrity Check (Ensure customer_id exists in master table)
+-- 1. Referential Integrity Check
 SELECT *
 FROM order_data od 
-LEFT JOIN customers_data cd ON od.customer_id = cd.customer_id
+LEFT JOIN customers_data cd 
+ON od.customer_id = cd.customer_id
 WHERE cd.customer_id IS NULL;
 
--- 2. Handling Corrupted Pricing Strings (Fix double periods format)
+-- 2. Fix Corrupted Pricing Format
 UPDATE order_item_data
 SET price = SPLIT_PART(price, '.', 1) || '.' || SPLIT_PART(price, '.', 2)
 WHERE price LIKE '%.%.%';
 
--- 3. Data Type Conversion (Cast text to numeric)
+-- 3. Convert Data Type
 ALTER TABLE order_item_data
 ALTER COLUMN price TYPE NUMERIC USING price::NUMERIC;
 
--- 4. Data Profiling (Check for Primary Key duplicates)
+-- 4. Check Duplicate Records
 SELECT order_id, order_item_id, COUNT(*) AS duplicate_count
 FROM order_item_data
 GROUP BY order_id, order_item_id
 HAVING COUNT(*) > 1;
 ```
 </details>
+2. **Data Reconciliation:
+** Documented the filtering process from raw transaction records (100k rows) into validated successful transactions (98k rows) to ensure data consistency before visualization.
+3. **Data Visualization (Power BI):*
+*Built an interactive dashboard to monitor:
+  - sales performance
+  - customer retention
+  - purchasing patterns
+  - regional order distribution
+The dashboard was designed to support business analysis through KPI tracking and customer behavior insights.
 
-
-2. **Data Reconciliation (Notion):** Logged the filtering process from raw checkout records (99k) to validated successful transactions (98k).
-3. **Data Visualization (Power BI):** Developed an interactive dashboard to display high-level KPIs and resolve structural data issues in user retention metrics.
+## Tools & Technologies
+  - PostgreSQL
+  - DBeaver
+  - Power BI
+  - GitHub
+  - Notion
 
 ## Important Links
 - **Interactive Dashboard:** [Download Power BI File (.pbix)](./AtikaShafiyya_OlistDashboard.pbix)
 - **Data Cleansing Documentation:** [Notion Log](https://www.notion.so/Data-Analyst-Portofolio-Atika-Shafiyya-Davino-3653ba008b1c8072b369ceae91fe2867?source=copy_link)
-- **Full Report:** You can view the full presentation here: [E-commerce Strategic Analysis.pdf](https://docs.google.com/presentation/d/1kvpgt9dY0cXcuDmSqgTKGVoT-PPHIq9Ng7Li3iJzmVo/edit?usp=sharing)
+- **Full Report:** You can view the full presentation here: [E-commerce Strategic Analysis](https://docs.google.com/presentation/d/1kvpgt9dY0cXcuDmSqgTKGVoT-PPHIq9Ng7Li3iJzmVo/edit?usp=sharing)
 
 ## Dashboard Overview
 <img width="1088" height="625" alt="Screenshot 2026-05-23 190652" src="https://github.com/user-attachments/assets/f6d24a72-a3d1-45df-a591-45c43000c678" />
 
-## Key Business Insight
-- **97% of the customer base consists of one-time buyers.** This high customer churn rate suggests that the company is spending heavily on user acquisition but struggling with retention. 
-- **Recommendation:** Shift budget toward retention marketing (e.g., automated email voucher loops 30 days post-purchase) to drive repeat orders more
+## Key Insights
+  - More than 97% of customers made only one purchase, showing a low repeat purchase rate.
+  - Transaction activity peaked between 2–3 AM, indicating unusually high nighttime purchasing activity.
+  - São Paulo (SP) contributed the largest share of total orders.
+  - Sales volume grew significantly throughout 2017–2018.
 
+## Key Business Insight
+  - Improve customer retention through post-purchase engagement strategies such as email reminders or discount vouchers.
+  - Optimize marketing campaigns during peak transaction hours.
+  - Prioritize operational support in high-demand regions such as São Paulo.
 sefficiently.IC USING price::NUMERIC;
   
