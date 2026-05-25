@@ -35,6 +35,7 @@ This project focuses on analyzing customer retention, order fulfillment, and bus
    FROM order_item_data
    GROUP BY order_id, order_item_id
    HAVING COUNT(*) > 1;
+```
 
 2. **Data Reconciliation (Notion):** Logged the filtering process from raw checkout records (99k) to validated successful transactions (98k).
 3. **Data Visualization (Power BI):** Developed an interactive dashboard to display high-level KPIs and resolve structural data issues in user retention metrics.
@@ -48,4 +49,7 @@ This project focuses on analyzing customer retention, order fulfillment, and bus
 
 ## Key Business Insight
 - **97% of the customer base consists of one-time buyers.** This high customer churn rate suggests that the company is spending heavily on user acquisition but struggling with retention. 
-- **Recommendation:** Shift budget toward retention marketing (e.g., automated email voucher loops 30 days post-purchase) to drive repeat orders more efficiently.IC USING price::NUMERIC;
+- **Recommendation:** Shift budget toward retention marketing (e.g., automated email voucher loops 30 days post-purchase) to drive repeat orders more
+
+sefficiently.IC USING price::NUMERIC;
+  
