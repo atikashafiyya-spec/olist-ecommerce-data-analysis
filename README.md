@@ -43,6 +43,7 @@ HAVING COUNT(*) > 1;
 ## Important Links
 - **Interactive Dashboard:** [Download Power BI File (.pbix)](./AtikaShafiyya_OlistDashboard.pbix)
 - **Data Cleansing Documentation:** [Notion Log](https://www.notion.so/Data-Analyst-Portofolio-Atika-Shafiyya-Davino-3653ba008b1c8072b369ceae91fe2867?source=copy_link)
+- **Full Report:** You can view the full presentation here: [E-commerce Strategic Analysis.pdf](https://docs.google.com/presentation/d/1kvpgt9dY0cXcuDmSqgTKGVoT-PPHIq9Ng7Li3iJzmVo/edit?usp=sharing)
 
 ## Dashboard Overview
 <img width="1088" height="625" alt="Screenshot 2026-05-23 190652" src="https://github.com/user-attachments/assets/f6d24a72-a3d1-45df-a591-45c43000c678" />
