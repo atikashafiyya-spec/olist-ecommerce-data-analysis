@@ -45,8 +45,8 @@ HAVING COUNT(*) > 1;
 </details>
 2. **Data Reconciliation:
 ** Documented the filtering process from raw transaction records (100k rows) into validated successful transactions (98k rows) to ensure data consistency before visualization.
-3. **Data Visualization (Power BI):*
-*Built an interactive dashboard to monitor:
+3. **Data Visualization (Power BI):
+**Built an interactive dashboard to monitor:
   - sales performance
   - customer retention
   - purchasing patterns
