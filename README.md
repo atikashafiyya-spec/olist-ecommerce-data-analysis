@@ -7,34 +7,32 @@ This project focuses on analyzing customer retention, order fulfillment, and bus
 
 1. **Data Cleaning & Validation (SQL):** Handled duplicate primary keys, fixed corrupted string formats in pricing, and managed data type conversions.
 
-  The process of cleaning the raw data for Olist E-Commerce is carried out entirely using PostgreSQL. Here are some of the key queries I use to address data anomalies:
+The process of cleaning the raw data for Olist E-Commerce is carried out entirely using PostgreSQL. Here are the key queries I used to address data anomalies:
 
-   <details>
-   <summary><b> 1. Validasi Integritas Referensial (LEFT JOIN Check)</b></summary>
+<details>
+<summary><b> View All SQL Data Cleaning Queries (Click to Expand)</b></summary>
 
-  I ensure there are no orphan records—where order data or order line items lose their association with their parent records—before they are pulled into Power BI.
+```sql
+-- 1. Referential Integrity Check (Ensure customer_id exists in master table)
+SELECT *
+FROM order_data od 
+LEFT JOIN customers_data cd ON od.customer_id = cd.customer_id
+WHERE cd.customer_id IS NULL;
 
-   ```sql
-   -- Ensure that all customer_id in the order table are present in the customer master table
-   SELECT *
-   FROM order_data od 
-   LEFT JOIN customers_data cd ON od.customer_id = cd.customer_id
-   WHERE cd.customer_id IS NULL;
-   
-   -- Correcting price text that contains double periods
-   UPDATE order_item_data
-   SET price = SPLIT_PART(price, '.', 1) || '.' || SPLIT_PART(price, '.', 2)
-   WHERE price LIKE '%.%.%';
+-- 2. Handling Corrupted Pricing Strings (Fix double periods format)
+UPDATE order_item_data
+SET price = SPLIT_PART(price, '.', 1) || '.' || SPLIT_PART(price, '.', 2)
+WHERE price LIKE '%.%.%';
 
-   -- Change the column data type from text to NUMERIC
-   ALTER TABLE order_item_data
-   ALTER COLUMN price TYPE NUMERIC USING price::NUMERIC;
+-- 3. Data Type Conversion (Cast text to numeric)
+ALTER TABLE order_item_data
+ALTER COLUMN price TYPE NUMERIC USING price::NUMERIC;
 
-   -- Checking for duplicates in the Primary Key of the Order Item table
-   SELECT order_id, order_item_id, COUNT(*) AS duplicate_count
-   FROM order_item_data
-   GROUP BY order_id, order_item_id
-   HAVING COUNT(*) > 1;
+-- 4. Data Profiling (Check for Primary Key duplicates)
+SELECT order_id, order_item_id, COUNT(*) AS duplicate_count
+FROM order_item_data
+GROUP BY order_id, order_item_id
+HAVING COUNT(*) > 1;
 ```
 
 2. **Data Reconciliation (Notion):** Logged the filtering process from raw checkout records (99k) to validated successful transactions (98k).
