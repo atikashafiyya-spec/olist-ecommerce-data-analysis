@@ -34,6 +34,8 @@ FROM order_item_data
 GROUP BY order_id, order_item_id
 HAVING COUNT(*) > 1;
 ```
+</details>
+
 
 2. **Data Reconciliation (Notion):** Logged the filtering process from raw checkout records (99k) to validated successful transactions (98k).
 3. **Data Visualization (Power BI):** Developed an interactive dashboard to display high-level KPIs and resolve structural data issues in user retention metrics.
