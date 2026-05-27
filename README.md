@@ -55,10 +55,6 @@ Built an interactive dashboard to monitor:
   - regional order distribution
 The dashboard was designed to support business analysis through KPI tracking and customer behavior insights.
 
-## Data Validation Summary
-During the validation process, a discrepancy was found between the total records in the order table (99,441) and the final successful transactions used for analysis (98,666).
-Further investigation showed that several records in the `order_data` table did not have matching transaction details in the `order_item_data` table. These incomplete records were excluded to maintain data consistency and reporting accuracy.
-
 ## Tools & Technologies
   - PostgreSQL
   - DBeaver
