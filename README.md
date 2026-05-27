@@ -71,7 +71,7 @@ The dashboard was designed to support business analysis through KPI tracking and
 - **Full Report:** You can view the full presentation here: [E-commerce Strategic Analysis](https://docs.google.com/presentation/d/1kvpgt9dY0cXcuDmSqgTKGVoT-PPHIq9Ng7Li3iJzmVo/edit?usp=sharing)
 
 ## Dashboard Overview
-<img width="1088" height="625" alt="Screenshot 2026-05-23 190652" src="https://github.com/user-attachments/assets/f6d24a72-a3d1-45df-a591-45c43000c678" />
+![Dashboard]<img width="1088" height="625" alt="Screenshot 2026-05-23 190652" src="https://github.com/user-attachments/assets/f6d24a72-a3d1-45df-a591-45c43000c678" />
 
 ## Key Insights
   - More than 97% of customers made only one purchase, showing a low repeat purchase rate.
